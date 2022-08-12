@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:loginapp/pages/utili/constants.dart';
+import 'package:loginapp/model/constants.dart';
+import 'package:loginapp/view/main_page.dart';
 import 'package:flutter/services.dart';
+import 'package:getwidget/getwidget.dart';
 
-
-
-class Signup_Page extends StatefulWidget {
-  const Signup_Page({Key? key}) : super(key: key);
+class Login_Page extends StatefulWidget {
+  static const routeName = '/Login_Page';
 
   @override
-  State<Signup_Page> createState() => _Signup_PageState();
+  State<Login_Page> createState() => _Login_PageState();
 }
 
-class _Signup_PageState extends State<Signup_Page> {
-
-
-  Widget  _buildName(){
+class _Login_PageState extends State<Login_Page> {
+  Widget _buildEmail() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Name',
+        Text(
+          'Email',
           style: kLabel,
         ),
         SizedBox(height: 10),
@@ -28,42 +27,13 @@ class _Signup_PageState extends State<Signup_Page> {
           height: 60,
           child: TextField(
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14),
-              prefixIcon: Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              hintText: 'Aldof Sylensa',
-              hintStyle: kHintText,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget  _buildEmail(){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Email',
-          style: kLabel,
-        ),
-        SizedBox(height: 10),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecoration,
-          height: 60,
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(border: InputBorder.none,
+            style: TextStyle(color: Colors.black),
+            decoration: InputDecoration(
+              border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14),
               prefixIcon: Icon(
                 Icons.email,
-                color: Colors.white,
+                color: Colors.black,
               ),
               hintText: 'thns@apple.com',
               hintStyle: kHintText,
@@ -74,11 +44,12 @@ class _Signup_PageState extends State<Signup_Page> {
     );
   }
 
-  Widget _buildPassword(){
+  Widget _buildPassword() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Password',
+        Text(
+          'Password',
           style: kLabel,
         ),
         SizedBox(height: 10),
@@ -87,13 +58,15 @@ class _Signup_PageState extends State<Signup_Page> {
           decoration: kBoxDecoration,
           height: 60,
           child: TextField(
+            obscureText: true,
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(border: InputBorder.none,
+            style: TextStyle(color: Colors.black),
+            decoration: InputDecoration(
+              border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14),
               prefixIcon: Icon(
                 Icons.lock,
-                color: Colors.white,
+                color: Colors.black,
               ),
               hintText: 'pick a strong password',
               hintStyle: kHintText,
@@ -110,18 +83,27 @@ class _Signup_PageState extends State<Signup_Page> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => print('Login Button Pressed'),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return Main_Page();
+          }));
+        },
+        //  press: () {
+        //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+        //     return Main_Page();
+        //   }));
+        // },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
-        color: Colors.white,
+        color: Colors.amber[200],
         child: Text(
-          'CREATE ACCOUNT',
+          'LOGIN',
           style: TextStyle(
-            color: Color(0xFF527DAA),
+            color: Color(0xFF521DAA),
             letterSpacing: 1.5,
-            fontSize: 15.0,
+            fontSize: 18.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'OpenSans',
           ),
@@ -136,27 +118,37 @@ class _Signup_PageState extends State<Signup_Page> {
         Text(
           '- OR -',
           style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w400,
+            color: Colors.black,
+            fontWeight: FontWeight.w800,
           ),
         ),
         SizedBox(height: 20.0),
+        Text(
+          'Sign in with',
+          style: kLabel,
+        ),
       ],
     );
   }
 
-  Widget _buildSocialBtn(Function onTap, AssetImage logo){
+  Widget _buildSocialBtn(Function onTap, String logo) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
-          Icon(Icons.g_mobiledata_rounded),
-          Text('Continue with Google',
+        children: [
+          Image.asset(
+            'assets/logos/google_logo.png',
+            width: 20,
+            height: 20,
+          ),
+          Text(
+            'Continue with Google',
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
-            ),)
+            ),
+          )
         ],
       ),
     );
@@ -168,13 +160,8 @@ class _Signup_PageState extends State<Signup_Page> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-
           _buildSocialBtn(
-                  () => print('Login with Google'),
-              AssetImage(
-                'assets/logos/google.jpg',
-              )
-          ),
+              () => print('Login with Google'), 'assets/logos/google_logo.png'),
         ],
       ),
     );
@@ -187,17 +174,17 @@ class _Signup_PageState extends State<Signup_Page> {
         text: TextSpan(
           children: [
             TextSpan(
-              text: 'Already a Member? ',
+              text: 'Don\'t have an Account? ',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 18.0,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
               ),
             ),
             TextSpan(
-              text: 'Login',
+              text: 'Sign up',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -208,7 +195,7 @@ class _Signup_PageState extends State<Signup_Page> {
     );
   }
 
-
+//BEGINNING OF THE Home_Page screen
 
   @override
   Widget build(BuildContext context) {
@@ -227,10 +214,10 @@ class _Signup_PageState extends State<Signup_Page> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color(0xFF53AEF5),
-                      Color(0xFF81A4F1),
-                      Color(0xFF488DE0),
-                      Color(0xFF497AE5),
+                      Color(0XFCFEF9F3),
+                      Color(0XFCFEF9F3),
+                      Color(0xA9EAF9F0),
+                      Color(0xA9EAF9F0),
                     ],
                     stops: [0.1, 0.4, 0.7, 0.9],
                   ),
@@ -240,30 +227,30 @@ class _Signup_PageState extends State<Signup_Page> {
                 height: double.infinity,
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.all(40),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 60.0,
+                    vertical: 140.0,
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Azuatalam Tech Solutions',
+                        'BEST BRAIN ACADEMY',
                         style: TextStyle(
-                          color: Colors.black38,
+                          color: Colors.blueGrey[800],
                           fontFamily: 'OpenSans',
                           fontSize: 23.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 20.0),
-                      _buildName(),
-                      SizedBox(height: 20.0),
+                      SizedBox(height: 30.0),
                       _buildEmail(),
                       SizedBox(
-                        height: 20.0,
+                        height: 30.0,
                       ),
                       _buildPassword(),
-                      SizedBox(height: 20.0),
+                      SizedBox(height: 25.0),
                       _buildLoginBtn(),
-                      SizedBox(height: 20.0),
                       _buildSignInWithText(),
                       _buildSocialBtnRow(),
                       _buildSignupBtn(),
@@ -277,5 +264,4 @@ class _Signup_PageState extends State<Signup_Page> {
       ),
     );
   }
-  }
-
+}

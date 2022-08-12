@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loginapp/login_page.dart';
-import 'package:loginapp/signup.dart';
+import 'package:loginapp/model/constants.dart';
+import 'package:loginapp/view/login_page.dart';
+import 'package:loginapp/view/welcome_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,9 +15,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home_Page(),
-      // home: Signup_Page(),
+      title: 'BEST BRAIN ACADEMY',
+      theme: ThemeData(
+        primaryColor: kPrimaryColor,
+        scaffoldBackgroundColor: Colors.white,
+      ),
+      home: WelcomeScreen(),
+      routes: {
+        Login_Page.routeName: (context) => Login_Page(),
+      },
     );
-
   }
 }
